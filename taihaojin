@@ -1,0 +1,316 @@
+
+//package Calculators;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class B4Calculator {
+
+	private JFrame frame;
+	private JTextField textField;
+	
+	int firstnum;
+	int secondnum;
+	int firstConnum;
+	int secondConnum;
+	int result;
+	String conResult;
+	String operat;
+	String ans;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					B4Calculator window = new B4Calculator();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public B4Calculator() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 320, 320);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		textField = new JTextField();
+		textField.setHorizontalAlignment(SwingConstants.RIGHT);
+		textField.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
+		textField.setBounds(10, 11, 270, 50);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
+		
+		//------------------------------Row 1----------------------------
+		//The clear button
+		JButton btnClr = new JButton("C");
+		btnClr.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textField.setText(null);
+			}
+		});
+		btnClr.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+		btnClr.setBounds(10, 72, 60, 60);
+		frame.getContentPane().add(btnClr);
+		
+		//the backspace button
+		JButton btnDel = new JButton("<-");
+		btnDel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String Del = null;
+				if(textField.getText().length() > 0) {
+					StringBuilder strB = new StringBuilder(textField.getText());
+					strB.deleteCharAt(textField.getText().length() - 1);
+					Del = strB.toString();
+					textField.setText(Del);
+				}
+			}
+		});
+		btnDel.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		btnDel.setBounds(80, 72, 60, 60);
+		frame.getContentPane().add(btnDel);
+		
+		//the Decimal
+		JButton btnDec = new JButton("\u00B1");
+		btnDec.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int ops = Integer.parseInt(String.valueOf(textField.getText()));
+				ops = ops * (-1);
+				textField.setText(String.valueOf(ops));
+			}
+		});
+		btnDec.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		btnDec.setBounds(150, 72, 60, 60);
+		frame.getContentPane().add(btnDec);
+		
+		//Equals
+		JButton btnEquals = new JButton("=");
+		btnEquals.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				secondnum = Integer.parseInt(textField.getText());
+				
+				if (operat == "+") {
+					
+					firstConnum = fourToten(firstnum);
+					secondConnum = fourToten(secondnum);
+					
+					//System.out.println(firstConnum);
+					//System.out.println(secondConnum);
+					
+					result = firstConnum + secondConnum;
+					
+					//System.out.println(result);
+					
+					conResult = tenTofour(result);
+					
+					//System.out.println(conResult);
+					
+					//ans = String.format("%.2f",conResult);
+					textField.setText(conResult);
+				}
+
+				else if (operat == "-") {
+					firstConnum = fourToten(firstnum);
+					secondConnum = fourToten(secondnum);
+					
+					result = firstnum - secondnum;
+					
+					conResult = tenTofour(result);
+					
+					//ans = String.format("%.2f",result);
+					textField.setText(conResult);
+				}
+
+				else if (operat == "*") {
+					firstConnum = fourToten(firstnum);
+					secondConnum = fourToten(secondnum);
+					
+					result = firstnum * secondnum;
+					
+					conResult = tenTofour(result);
+					
+					//ans = String.format("%.2f",result);
+					textField.setText(conResult);
+				}
+
+				else if (operat == "/") {
+					firstConnum = fourToten(firstnum);
+					secondConnum = fourToten(secondnum);
+					
+					result = firstnum / secondnum;
+					
+					conResult = tenTofour(result);
+					
+					//ans = String.format("%.2f",result);
+					textField.setText(conResult);
+				}
+				
+			}
+		});
+		btnEquals.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		btnEquals.setBounds(220, 72, 60, 60);
+		frame.getContentPane().add(btnEquals);
+		
+		//------------------------------Row 2----------------------------
+		//button 3
+		JButton btn3 = new JButton("3");
+		btn3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String EnterNumber = textField.getText() + btn3.getText();
+				textField.setText(EnterNumber);
+			}
+		});
+		btn3.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		btn3.setBounds(10, 143, 60, 60);
+		frame.getContentPane().add(btn3);
+		
+		//button 2
+		JButton btn2 = new JButton("2");
+		btn2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String EnterNumber = textField.getText() + btn2.getText();
+				textField.setText(EnterNumber);
+			}
+		});
+		btn2.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		btn2.setBounds(80, 143, 60, 60);
+		frame.getContentPane().add(btn2);
+		
+		//button 1
+		JButton btn1 = new JButton("1");
+		btn1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String EnterNumber = textField.getText() + btn1.getText();
+				textField.setText(EnterNumber);
+			}
+		});
+		btn1.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		btn1.setBounds(150, 143, 60, 60);
+		frame.getContentPane().add(btn1);
+		
+		
+		//button 0
+		JButton btn0 = new JButton("0");
+		btn0.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String EnterNumber = textField.getText() + btn0.getText();
+				textField.setText(EnterNumber);
+			}
+		});
+		btn0.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		btn0.setBounds(220, 143, 60, 60);
+		frame.getContentPane().add(btn0);
+		
+		//------------------------------Row 3----------------------------
+		JButton btnDiv = new JButton("/");
+		btnDiv.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				firstnum = Integer.parseInt(textField.getText());
+				textField.setText("");
+				operat = "/";
+			}
+		});
+		btnDiv.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		btnDiv.setBounds(10, 214, 60, 60);
+		frame.getContentPane().add(btnDiv);
+		
+		JButton btnMulti = new JButton("*");
+		btnMulti.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				firstnum = Integer.parseInt(textField.getText());
+				textField.setText("");
+				operat = "*";
+			}
+		});
+		btnMulti.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		btnMulti.setBounds(80, 214, 60, 60);
+		frame.getContentPane().add(btnMulti);
+		
+		JButton btnMinus = new JButton("-");
+		btnMinus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				firstnum = Integer.parseInt(textField.getText());
+				textField.setText("");
+				operat = "-";
+			}
+		});
+		btnMinus.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		btnMinus.setBounds(150, 214, 60, 60);
+		frame.getContentPane().add(btnMinus);
+		
+		//button +
+		JButton btnPlus = new JButton("+");
+		btnPlus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				firstnum = Integer.parseInt(textField.getText());
+				textField.setText("");
+				operat = "+";
+			}
+		});
+		btnPlus.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		btnPlus.setBounds(220, 214, 60, 60);
+		frame.getContentPane().add(btnPlus);
+	}
+	
+	public int fourToten(int num) {
+		
+		String strnum = "";
+		String conNum;
+		int intNum;
+		int intVal;
+		
+		strnum = Integer.toString(num);
+		
+		intNum = Integer.valueOf( strnum, 4 );
+		conNum = Integer.toString( intNum , 10 );
+		
+		intVal = Integer.parseInt(conNum);
+		
+		return intVal;
+		//return conNum;
+	}
+	
+	
+	public String tenTofour(int num) {
+		
+		String strnum = "";
+		String conNum;
+		int intNum;
+		//int intVal;
+		
+		strnum = Integer.toString(num);
+		
+		intNum = Integer.valueOf( strnum, 10 );
+		conNum = Integer.toString( intNum , 4 );
+		
+		//intVal = Integer.parseInt(conNum);
+		
+		//return intVal;
+		return conNum;
+	}
+
+}
